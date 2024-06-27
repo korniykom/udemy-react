@@ -1,0 +1,184 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+li {
+  font-family: sans-serif;
+  color: #444;
+}
+h1,
+h2,
+h3 {
+  color: #1098ad;
+}
+h1 {
+  font-size: 26px;
+  text-transform: uppercase;
+  font-style: italic;
+  color: #1098ad;
+}
+h2 {
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+article {
+  margin-bottom: 60px;
+}
+h3 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+h4 {
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+}
+p {
+  font-size: 22px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+ul,
+ol {
+  margin-left: 50px;
+  margin-bottom: 20px;
+}
+li {
+  font-size: 20px;
+}
+/* footer p {
+  font-size: 16px;
+} */
+#copyright {
+  font-size: 16px;
+}
+#author {
+  font-style: italic;
+}
+.related-author {
+  font-size: 18px;
+  font-weight: bold;
+}
+.related {
+  list-style-type: none;
+}
+.post-header {
+  margin-bottom: 40px;
+}
+.main-header {
+  background-color: #f7f7f7;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-bottom: 60px;
+  height: 80px;
+  /*
+  short hand
+  padding: 20px, 40px
+  */
+}
+aside {
+  background-color: #f7f7f7;
+  border-top: solid 5px #1098ad;
+  border-bottom: solid 5px #1098ad;
+  padding: 50px 0;
+  width: 500px;
+}
+li {
+  margin-bottom: 16px;
+}
+li:first-child {
+  font-weight: bold;
+}
+li:last-child {
+  font-style: italic;
+  margin-bottom: 0;
+}
+li:nth-child(odd) {
+  color: red;
+}
+article p:last-child {
+  color: magenta;
+}
+a:link {
+  color: #1098ad;
+  text-decoration: none;
+}
+a:visited {
+  color: #777;
+}
+a:hover {
+  color: orangered;
+  text-decoration: underline wavy magenta;
+  font-weight: bold;
+}
+a:active {
+  font-style: italic;
+  background-color: black;
+}
+/*resolving conflicts*/
+#copyright {
+  color: red;
+}
+.copyright {
+  color: blue !important;
+}
+.text {
+  color: yellow;
+}
+footer {
+  color: green;
+}
+.post-image {
+  width: 100%;
+  height: auto;
+}
+.container {
+  width: 800px;
+
+  margin: 0 auto;
+}
+nav a:link {
+  margin: 30px;
+  display: inline-block;
+}
+nav a:link:last-child {
+  margin-right: 0;
+}
+.like-button {
+  font-size: 22px;
+  padding: 20px;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+body {
+  position: relative;
+}
+h1::first-letter {
+  font-style: normal;
+  margin: 5px;
+}
+p::first-line {
+  color: pink;
+}
+h2 {
+  position: relative;
+}
+h2::after {
+  content: "TOP";
+  background-color: yellowgreen;
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  right: -10px;
+}

@@ -1,0 +1,122 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #ddd;
+}
+.title {
+  font-size: 24px;
+  margin: 16px 0;
+}
+.free-shiping {
+  color: grey;
+  align-self: center;
+}
+.description {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+a:link,
+a:visited {
+  color: black;
+}
+a:hover,
+a:active {
+  text-decoration: none;
+}
+.bottom-button {
+  background-color: black;
+  color: white;
+  border: none;
+  width: 100%;
+  height: 60px;
+  font-size: 24px;
+}
+.bottom-button:hover {
+  background-color: transparent;
+  color: black;
+  border-top: solid black;
+}
+.container {
+  position: relative;
+  width: 825px;
+  margin: 0 auto;
+  border: solid 4px black;
+}
+.main-title {
+  padding: 20px 0;
+}
+li {
+  margin: 16px 16px;
+}
+.sale {
+  position: absolute;
+  display: inline-block;
+  padding: 10px;
+  background-color: orangered;
+  color: white;
+  width: 50px;
+  height: 24px;
+  text-align: center;
+  top: -25px;
+  left: -25px;
+  letter-spacing: 4px;
+}
+body {
+  margin: 25px;
+}
+
+.black {
+  background-color: black;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+.blue {
+  background-color: blue;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+.red {
+  background-color: red;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+.yellow {
+  background-color: yellow;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+.green {
+  background-color: green;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+.brown {
+  background-color: brown;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.more-info {
+  margin-bottom: 25px;
+  display: inline-block;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}

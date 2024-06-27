@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accordion Component</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        color: #343a40;
+      }
+      button {
+        border: none;
+        border-radius: 50px;
+        width: 40px;
+        height: 40px;
+      }
+      .pagination {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon {
+        background-color: white;
+      }
+      .active {
+        background-color: #087f5b;
+        color: white;
+        width: 25px;
+        height: 25px;
+      }
+      .arrow-button {
+        display: flex;
+        background-color: white;
+        border: solid 1.9px #087f5b;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .arrow {
+        width: 25px;
+        stroke: #087f5b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pagination">
+      <button class="arrow-button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="arrow"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"
+          />
+        </svg>
+      </button>
+      <button class="icon">1</button>
+      <button class="icon">2</button>
+      <button class="icon active">3</button>
+      <button class="icon">4</button>
+      <button class="icon">5</button>
+      <button class="icon">...</button>
+      <button class="icon">23</button>
+      <button class="arrow-button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="arrow"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m8.25 4.5 7.5 7.5-7.5 7.5"
+          />
+        </svg>
+      </button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+/*- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+*/
+html {
+  background-color: #868e96;
+  font-size: 62.5%;
+}
+body {
+  font-family: "Jacquard 12 Charted", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.title {
+  font-size: 6rem;
+  text-align: center;
+  text-decoration: underline;
+  color: #e9ecef;
+}
+.second-title {
+  font-size: 4rem;
+  text-align: center;
+  color: #e9ecef;
+  font-weight: 600;
+}
+img {
+  height: 36rem;
+  width: 36rem;
+  justify-self: center;
+}
+.result {
+  font-size: 4rem;
+  color: #e9ecef;
+  text-align: center;
+}
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+.restart-button,
+.restart-button:link,
+.restart-button:visited {
+  border-radius: 0;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.26s;
+  padding: 2rem 1.2rem;
+  font-size: 12rem;
+}
+.restart-button:hover,
+.restart-button:active {
+  box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.11);
+  background-color: #e9ecef;
+  color: #495057;
+}
