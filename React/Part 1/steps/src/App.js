@@ -42,21 +42,21 @@ export default function App() {
             Step {step}: {messages[step - 1]}
           </p>
           <div className="buttons">
-            <button
-              style={{ backgroundColor: "#7950f2", color: "white" }}
-              onClick={handlePrevious}
-            >
-              Previous
-            </button>
-            <button
-              style={{ backgroundColor: "#7950f2", color: "white" }}
-              onClick={handleNext}
-            >
-              Next
-            </button>
+            <Button title={"Previous"} callbackFunction={handlePrevious} />
+            <Button title={"Next"} callbackFunction={handleNext} />
           </div>
         </div>
       )}
     </>
   );
+  function Button({ title, callbackFunction }) {
+    return (
+      <button
+        style={{ backgroundColor: "#7950f2", color: "white" }}
+        onClick={callbackFunction}
+      >
+        {title}
+      </button>
+    );
+  }
 }
