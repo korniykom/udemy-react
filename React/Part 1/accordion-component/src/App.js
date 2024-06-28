@@ -30,6 +30,8 @@ const faqs = [
 ];
 
 function Accordion() {
+  const [isOpenId, setIsOpenId] = useState(null);
+
   return (
     <div className="accordion">
       {faqs.map((faq, indx) => {
@@ -39,6 +41,8 @@ function Accordion() {
             id={indx}
             key={indx}
             text={faq.text}
+            isOpenId={isOpenId}
+            onSetOpenId={setIsOpenId}
           />
         );
       })}
@@ -46,13 +50,15 @@ function Accordion() {
   );
 }
 
-function AccordionItem({ title, text, id }) {
-  const [isOpen, setIsOpen] = useState(false);
-  function handleOpen() {
-    setIsOpen(!isOpen);
-  }
+function AccordionItem({ title, text, id, isOpenId, onSetOpenId }) {
+  const isOpen = isOpenId === id;
   return (
-    <div className={` item ${isOpen ? "open" : ""}`} onClick={handleOpen}>
+    <div
+      className={` item ${isOpen ? "open" : ""}`}
+      onClick={() => {
+        onSetOpenId(id);
+      }}
+    >
       <div className="number">0{id + 1}</div>
       <div className="title">{title}</div>
       <div className="icon">{isOpen ? "-" : "+"}</div>
