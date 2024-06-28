@@ -12,6 +12,10 @@ export default function App() {
     setItems((items) => items.filter((item) => item.id !== id));
   }
 
+  function handleDeleteItems() {
+    setItems([]);
+  }
+
   function handleToggleItem(id) {
     setItems((items) =>
       items.map((item) =>
@@ -26,7 +30,8 @@ export default function App() {
       <Form onAddItems={handleAddItems} />
       <PackingList
         items={items}
-        onDeleteItems={handleDeleteItem}
+        onDeleteItem={handleDeleteItem}
+        onDeleteItems={handleDeleteItems}
         onToggleItems={handleToggleItem}
       />
       <Stats items={items} />
@@ -83,7 +88,7 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items, onDeleteItems, onToggleItems }) {
+function PackingList({ items, onDeleteItem, onDeleteItems, onToggleItems }) {
   const [sortBy, setSortBy] = useState("input");
 
   let sortedItems;
@@ -111,7 +116,7 @@ function PackingList({ items, onDeleteItems, onToggleItems }) {
             <Item
               item={item}
               key={item.id}
-              onDeleteItems={onDeleteItems}
+              onDeleteItem={onDeleteItem}
               onToggleItems={onToggleItems}
             />
           );
@@ -123,12 +128,13 @@ function PackingList({ items, onDeleteItems, onToggleItems }) {
           <option value="description">Sort by description</option>
           <option value="packed">Sort by packed status</option>
         </select>
+        <button onClick={onDeleteItems}>Clear List</button>
       </div>
     </div>
   );
 }
 
-function Item({ item, onDeleteItems, onToggleItems }) {
+function Item({ item, onDeleteItem, onToggleItems }) {
   return (
     <li>
       <input
@@ -141,7 +147,7 @@ function Item({ item, onDeleteItems, onToggleItems }) {
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button onClick={() => onDeleteItems(item.id)}> {"❌"}</button>
+      <button onClick={() => onDeleteItem(item.id)}> {"❌"}</button>
     </li>
   );
 }
