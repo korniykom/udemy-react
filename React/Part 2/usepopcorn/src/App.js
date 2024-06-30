@@ -100,7 +100,6 @@ export default function App() {
         <NumResult movies={movies} />
       </NavBar>
       <Main>
-        {" "}
         <Box>
           <MovieList movies={movies} />
         </Box>
