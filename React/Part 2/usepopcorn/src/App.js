@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
+import { useMovies } from "./useMovies";
+import { useLocalStorageState } from "./useLocalStorageState";
+import { useKey } from "./useKey";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -26,6 +29,22 @@ function Logo() {
 }
 
 function Search({ query, setQuery }) {
+  const inputElement = useRef(null);
+  function callback(e) {
+    if (document.activeElement === inputElement.current) {
+      return;
+    }
+
+    if (e.code === "Enter") {
+      inputElement.current.focus();
+      setQuery("");
+    }
+    return () => document.addEventListener("keydown", callback);
+  }
+
+  useEffect(() => {
+    document.addEventListener("keydown", callback);
+  });
   return (
     <input
       className="search"
@@ -33,6 +52,7 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputElement}
     />
   );
 }
@@ -44,11 +64,13 @@ function Main({ children }) {
 const KEY = "cce532b";
 export default function App() {
   const [query, setQuery] = useState("");
+  const { movies, isLoading, error } = useMovies(query);
+  const [watched, setWatched] = useLocalStorageState([], "watched");
 
-  const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  // const [watched, setWatched] = useState(() => {
+  //   const storedValue = localStorage.getItem("watched");
+  //   return JSON.parse(storedValue);
+  // });
   const [selectedId, setSelectedId] = useState("");
 
   function handleSelectMovie(id) {
@@ -66,49 +88,6 @@ export default function App() {
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
-
-  useEffect(
-    function () {
-      const controller = new AbortController();
-      async function fetchMovies() {
-        try {
-          setError("");
-          setIsLoading(true);
-          const response = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-            { signal: controller.signal }
-          );
-
-          if (!response.ok) {
-            throw new Error("Something went wrong with fetching movies");
-          }
-
-          const responseJSON = await response.json();
-
-          if (responseJSON.Response === "False") {
-            throw new Error("Movie not found");
-          }
-
-          setMovies(responseJSON.Search);
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-      if (query.length < 3) {
-        setMovies([]);
-        setError("");
-        return;
-      }
-      handleCloseMovie();
-      fetchMovies();
-      return function () {
-        controller.abort();
-      };
-    },
-    [query]
-  );
 
   return (
     <>
@@ -160,6 +139,12 @@ function MovieDeatails({
 
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
 
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    userRating && (countRef.current = countRef.current + 1);
+  }, [userRating]);
+
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
   )?.userRating;
@@ -186,26 +171,15 @@ function MovieDeatails({
       userRating,
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
+      countRatingDesicions: countRef.current,
     };
 
     onAddWatched(newMovie);
     handleCloseMovie();
   }
 
-  useEffect(
-    function () {
-      function callback(e) {
-        if (e.code === "Escape") {
-          handleCloseMovie();
-        }
-      }
-      document.addEventListener("keydown", callback);
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [handleCloseMovie]
-  );
+  useKey("Escape", handleCloseMovie);
+
   useEffect(
     function () {
       async function getMovieDetails() {
