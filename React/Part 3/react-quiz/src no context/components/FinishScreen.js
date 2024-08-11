@@ -1,10 +1,9 @@
-import { useQuiz } from "../contexts/QuizContext";
-
-export default function FinishScreen() {
-  const { points, questions, highscore, dispatch } = useQuiz();
-  const maxAmountOfPoints = questions.reduce((accumulator, currentValue) => {
-    return +accumulator + currentValue.points;
-  }, 0);
+export default function FinishScreen({
+  points,
+  maxAmountOfPoints,
+  highscore,
+  dispatch,
+}) {
   return (
     <>
       <p className="result">
