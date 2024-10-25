@@ -1,30 +1,74 @@
 const fs = require("fs");
 const http = require("http");
+const path = require("path");
+const url = require("url");
 
-// // Synchronos, Blocking way
-// const textIn = fs.readFileSync("./txt/input.txt", "utf-8");
-// console.log(textIn);
+const slugify = require("slugify");
 
-// const textOut = `This is what we know about avocado: ${textIn}.\nCreated ${Date.now()}`;
-// fs.writeFileSync("./txt/output.txt", textOut);
-// console.log("Files written");
+const replaceTemplate = require("./module/replaceTemplate");
 
-// // Asynchronos, Non-blocking way
-// fs.readFile("./txt/start.txt", "utf-8", (error, data1) => {
-//   fs.readFile(`./txt/${data1}.txt`, "utf-8", (error, data2) => {
-//     console.log(data2);
-//     fs.readFile("./txt/append.txt", "utf-8", (error, data3) => {
-//       console.log(data3);
-//       fs.writeFile(
-//         "./txt/final.txt",
-//         `${data2}\n${data3}`,
-//         "utf-8",
-//         (error) => {
-//           console.log("Your file has been written!");
-//         }
-//       );
-//     });
-//   });
-// });
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const templateOverview = fs.readFileSync(
+  `${__dirname}/templates/template_overview.html`,
+  "utf-8"
+);
+const templateCard = fs.readFileSync(
+  `${__dirname}/templates/template_card.html`,
+  "utf-8"
+);
+const templateProduct = fs.readFileSync(
+  `${__dirname}/templates/template_product.html`,
+  "utf-8"
+);
 
-// console.log("Will read the file!");
+const dataObj = JSON.parse(data);
+
+const slugs = dataObj.map((el) => slugify(el.productName, { lower: true }));
+console.log(slugs);
+
+const server = http.createServer((request, response) => {
+  console.log(request.url);
+  const { query, pathname } = url.parse(request.url, true);
+
+  // Overview page
+  if (pathname === "/" || pathname === "/overview") {
+    response.writeHead(200, {
+      "Content-type": "text/html",
+    });
+
+    const cardsHtml = dataObj
+      .map((el) => replaceTemplate(templateCard, el))
+      .join("");
+    const output = templateOverview.replace("{%PRODUCT_CARDS%}", cardsHtml);
+    response.end(output);
+
+    // Product page
+  } else if (pathname === "/product") {
+    response.writeHead(200, {
+      "Content-type": "text/html",
+    });
+
+    const product = dataObj[query.id];
+    const output = replaceTemplate(templateProduct, product);
+
+    console.log(query);
+    response.end(output);
+
+    // API
+  } else if (pathname === "/api") {
+    fs.readFile(`./dev-data/data.json`, "utf-8", (error, data) => {
+      const productData = JSON.parse(data);
+      response.writeHead(200, { "Content-type": "application/json" });
+      response.end(data);
+    });
+
+    // Not Found
+  } else {
+    response.writeHead(404, { "Content-type": "text/html" });
+    response.end("<h1>Page Not Found</h1>");
+  }
+});
+
+server.listen(8000, "127.0.0.1", () => {
+  console.log("Listening to requests on port 8000");
+});
